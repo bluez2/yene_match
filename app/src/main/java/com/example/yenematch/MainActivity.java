@@ -28,21 +28,19 @@ public class MainActivity extends AppCompatActivity {
         tvSignupLink = findViewById(R.id.tvSignupLink);
 
         // Handle Login Button Click
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // In Phase 2, we will add Firebase/API auth here
-                String email = etEmail.getText().toString();
-                String password = etPassword.getText().toString();
+        btnLogin.setOnClickListener(v -> {
+            String email = etEmail.getText().toString();
+            String password = etPassword.getText().toString();
 
-                if(email.isEmpty() || password.isEmpty()){
-                    Toast.makeText(MainActivity.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
-                } else {
-                    // Temporary: Go to a mock Discover page (we will build this next)
-                    Toast.makeText(MainActivity.this, "Logging in...", Toast.LENGTH_SHORT).show();
-                }
+            // For now, we allow any login for testing
+            if(!email.isEmpty() && !password.isEmpty()) {
+                Intent intent = new Intent(MainActivity.this, DiscoverActivity.class);
+                startActivity(intent);
+                finish(); // This prevents the user from going back to the login screen
+            } else {
+                Toast.makeText(this, "Please enter email and password", Toast.LENGTH_SHORT).show();
             }
-        });
+        });;
 
         // Handle "Signup" Link Click - Navigates to SignupActivity
         tvSignupLink.setOnClickListener(new View.OnClickListener() {
