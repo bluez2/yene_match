@@ -88,6 +88,12 @@ public class DiscoverActivity extends AppCompatActivity {
                 finish();
                 return true;
             }
+            else if (id == R.id.nav_messages) {
+                startActivity(new Intent(this, Messages.class));
+                overridePendingTransition(0, 0);
+                finish();
+                return true;
+            }
             // ... (rest of your navigation logic)
             return true;
         });

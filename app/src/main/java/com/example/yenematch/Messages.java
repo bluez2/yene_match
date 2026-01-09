@@ -1,24 +1,53 @@
 package com.example.yenematch;
 
+import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.activity.EdgeToEdge;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class Messages extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_messages);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
+
+        // 1. Initialize Bottom Navigation
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+
+        // 2. Set "Messages" as Selected (Turns it RED)
+        bottomNavigationView.setSelectedItemId(R.id.nav_messages);
+
+        // 3. Setup Navigation Click Listeners
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            int id = item.getItemId();
+
+            if (id == R.id.nav_messages) {
+                return true; // Already here
+            } else if (id == R.id.nav_discover) {
+                startActivity(new Intent(Messages.this, DiscoverActivity.class));
+                overridePendingTransition(0, 0);
+                finish();
+                return true;
+            } else if (id == R.id.nav_search) {
+                startActivity(new Intent(Messages.this, Search_page.class));
+                overridePendingTransition(0, 0);
+                finish();
+                return true;
+            } else if (id == R.id.nav_profile) {
+                Toast.makeText(this, "Profile Screen coming soon!", Toast.LENGTH_SHORT).show();
+                return true;
+            }
+            return false;
+        });
+
+        // 4. Click listener for Sarah (Example for opening a chat)
+        LinearLayout itemSarah = findViewById(R.id.message_item_sarah);
+        itemSarah.setOnClickListener(v -> {
+            Toast.makeText(this, "Opening chat with Sarah...", Toast.LENGTH_SHORT).show();
+            // Later we will open a real ChatActivity here
         });
     }
 }
