@@ -1,55 +1,75 @@
 package com.example.yenematch;
 
-import android.content.Intent; // Needed for navigation
+import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;   // Needed for Edit Profile button
-import android.widget.ImageView; // Needed for Settings gear icon
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class Profile_page extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_profile_page);
 
-        // System Bar Padding (Edge-to-Edge)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
+        // 1. Initialize Bottom Navigation
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+
+        // 2. Highlight "Profile" as Active (Turns RED)
+        bottomNavigationView.setSelectedItemId(R.id.nav_profile);
+
+        // 3. Navigation Click Listeners
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            int id = item.getItemId();
+
+            if (id == R.id.nav_profile) {
+                return true; // Already here
+            } else if (id == R.id.nav_discover) {
+                startActivity(new Intent(Profile_page.this, DiscoverActivity.class));
+                overridePendingTransition(0, 0);
+                finish();
+                return true;
+            } else if (id == R.id.nav_search) {
+                startActivity(new Intent(Profile_page.this, Search_page.class));
+                overridePendingTransition(0, 0);
+                finish();
+                return true;
+            } else if (id == R.id.nav_messages) {
+                startActivity(new Intent(Profile_page.this, Messages.class));
+                overridePendingTransition(0, 0);
+                finish();
+                return true;
+            }
+            return false;
         });
 
-        // 1. Settings Icon Functionality
-        ImageView settingsBtn = findViewById(R.id.settings_gear); // Make sure this ID matches your XML
+        // 4. Settings Icon Functionality
+        ImageView settingsBtn = findViewById(R.id.settings_gear);
         settingsBtn.setOnClickListener(v -> {
             Intent intent = new Intent(Profile_page.this, Settings.class);
             startActivity(intent);
         });
 
-        // 2. Edit Profile Button Functionality
-        Button editProfileBtn = findViewById(R.id.btnEditProfile); // Make sure this ID matches your XML
+        // 5. Edit Profile Button Functionality
+        Button editProfileBtn = findViewById(R.id.btnEditProfile);
         editProfileBtn.setOnClickListener(v -> {
-            editProfile dialog = new editProfile();
-            dialog.show(getSupportFragmentManager(), "EditProfileDialog");
-            // If you have an EditProfile activity, navigate there:
-            // Intent intent = new Intent(Profile_page.this, EditProfileActivity.class);
-            // startActivity(intent);
+            // Using a Toast for now as a placeholder for your dialog logic
+            Toast.makeText(this, "Opening Edit Profile...", Toast.LENGTH_SHORT).show();
+            // editProfile dialog = new editProfile();
+            // dialog.show(getSupportFragmentManager(), "EditProfileDialog");
         });
-        // Inside onCreate method
-        TextView appName = findViewById(R.id.appName);
 
+        // 6. App Name Click (Shortcut to Discover)
+        TextView appName = findViewById(R.id.appName);
         appName.setOnClickListener(v -> {
-            // Intent to navigate to DiscoverActivity
             Intent intent = new Intent(Profile_page.this, DiscoverActivity.class);
             startActivity(intent);
+            finish();
         });
     }
 }

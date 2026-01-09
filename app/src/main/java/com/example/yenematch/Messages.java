@@ -37,7 +37,9 @@ public class Messages extends AppCompatActivity {
                 finish();
                 return true;
             } else if (id == R.id.nav_profile) {
-                Toast.makeText(this, "Profile Screen coming soon!", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this, Profile_page.class));
+                overridePendingTransition(0, 0);
+                finish();
                 return true;
             }
             return false;
@@ -46,8 +48,8 @@ public class Messages extends AppCompatActivity {
         // 4. Click listener for Sarah (Example for opening a chat)
         LinearLayout itemSarah = findViewById(R.id.message_item_sarah);
         itemSarah.setOnClickListener(v -> {
-            Toast.makeText(this, "Opening chat with Sarah...", Toast.LENGTH_SHORT).show();
-            // Later we will open a real ChatActivity here
+            Intent intent = new Intent(Messages.this, Chats.class);
+            startActivity(intent);
         });
     }
 }

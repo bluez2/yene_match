@@ -57,6 +57,7 @@ public class Search_page extends AppCompatActivity {
             } else if (id == R.id.nav_profile) {
                 startActivity(new Intent(this, Profile_page.class));
                 overridePendingTransition(0, 0);
+                finish();
                 return true;
             }
             else if (id == R.id.nav_messages) {
