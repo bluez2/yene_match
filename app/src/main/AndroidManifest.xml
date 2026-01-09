@@ -12,11 +12,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.YeneMatch">
         <activity
+            android:name=".activity_setup_profile2"
+            android:exported="false" />
+        <activity
             android:name=".chat"
             android:exported="false" />
         <activity
             android:name=".Edit_profile"
             android:exported="false" />
+        <activity android:name=".SetupProfileActivity2" />
         <activity
             android:name=".Chats"
             android:exported="false" />

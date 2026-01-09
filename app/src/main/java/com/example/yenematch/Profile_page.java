@@ -56,12 +56,14 @@ public class Profile_page extends AppCompatActivity {
         });
 
         // 5. Edit Profile Button Functionality
+        // 2. Edit Profile Button Functionality
         Button editProfileBtn = findViewById(R.id.btnEditProfile);
         editProfileBtn.setOnClickListener(v -> {
-            // Using a Toast for now as a placeholder for your dialog logic
-            Toast.makeText(this, "Opening Edit Profile...", Toast.LENGTH_SHORT).show();
-            // editProfile dialog = new editProfile();
-            // dialog.show(getSupportFragmentManager(), "EditProfileDialog");
+            // This creates the pop-up
+            editProfile dialog = new editProfile();
+
+            // This shows the pop-up on top of the current screen
+            dialog.show(getSupportFragmentManager(), "EditProfileDialog");
         });
 
         // 6. App Name Click (Shortcut to Discover)

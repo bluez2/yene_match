@@ -29,10 +29,8 @@ public class SetupProfileActivity extends AppCompatActivity {
             if(username.isEmpty() || pass.isEmpty()){
                 Toast.makeText(SetupProfileActivity.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(SetupProfileActivity.this, "Account Created!", Toast.LENGTH_SHORT).show();
 
-                // Go to Discover Screen
-                Intent intent = new Intent(SetupProfileActivity.this, DiscoverActivity.class);
+                Intent intent = new Intent(SetupProfileActivity.this, SetupProfileActivity2.class);
                 startActivity(intent);
 
                 // This is important: it clears the "Signup" screens from history
