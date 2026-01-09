@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:background="@drawable/bg_dialog_rounded">
+
+    <TextView
+        android:id="@+id/tvOptionTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Options"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:paddingBottom="15dp"
+        android:textColor="#333333"/>
+
+    <TextView
+        android:id="@+id/btnOptionUnmatch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Unmatch User"
+        android:textColor="#A52A2A"
+        android:textSize="16sp"
+        android:paddingVertical="12dp"
+        android:drawableStart="@drawable/ic_close"
+        android:drawablePadding="10dp"/>
+
+    <TextView
+        android:id="@+id/btnOptionDelete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Delete Conversation"
+        android:textColor="#FF0000"
+        android:textSize="16sp"
+        android:paddingVertical="12dp"
+        android:drawableStart="@drawable/ic_delete"
+        android:drawablePadding="10dp"/>
+
+</LinearLayout>
