@@ -46,7 +46,15 @@ public class DiscoverActivity extends AppCompatActivity {
         ImageButton btnDislike = findViewById(R.id.btnDislike);
         bottomNavigationView = findViewById(R.id.bottom_navigation);
 
+
         updateProfile();
+
+        ImageView btnSettings = findViewById(R.id.btnSettings);
+        btnSettings.setOnClickListener(v -> {
+            Intent intent = new Intent(DiscoverActivity.this, Settings.class);
+            startActivity(intent);
+        });
+
 
         btnLike.setOnClickListener(v -> {
             Toast.makeText(this, "Liked!", Toast.LENGTH_SHORT).show();
@@ -94,7 +102,12 @@ public class DiscoverActivity extends AppCompatActivity {
                 finish();
                 return true;
             }
-            // ... (rest of your navigation logic)
+            else if (id == R.id.nav_profile) {
+                startActivity(new Intent(this, Profile_page.class));
+                overridePendingTransition(0, 0);
+                finish();
+                return true;
+            }// ... (rest of your navigation logic)
             return true;
         });
     }

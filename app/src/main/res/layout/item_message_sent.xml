@@ -8,9 +8,10 @@
         android:id="@+id/tvMessageSent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:maxWidth="260dp"
         android:background="@drawable/bg_sent_bubble"
         android:padding="12dp"
-        android:text="Sent Message"
+        android:text="Honestly? Your smile."
         android:textColor="#FFFFFF"
         android:textSize="16sp" />
 </LinearLayout>

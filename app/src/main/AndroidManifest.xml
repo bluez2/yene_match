@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.YeneMatch">
         <activity
+            android:name=".chat"
+            android:exported="false" />
+        <activity
             android:name=".Edit_profile"
             android:exported="false" />
         <activity

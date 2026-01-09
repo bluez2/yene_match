@@ -1,16 +1,25 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="start"
+    android:orientation="horizontal"
     android:padding="8dp">
 
-    <TextView
-        android:id="@+id/tvMessageReceived"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_received_bubble"
-        android:padding="12dp"
-        android:text="Received Message"
-        android:textColor="#000000"
-        android:textSize="16sp" />
+    <com.google.android.material.imageview.ShapeableImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="bottom"
+        android:src="@drawable/img_user1"
+        app:shapeAppearanceOverlay="@style/CircleImage" /> <TextView
+    android:id="@+id/tvMessageReceived"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="8dp"
+    android:maxWidth="260dp"
+    android:background="@drawable/bg_received_bubble"
+    android:padding="12dp"
+    android:text="So what caught your attention?"
+    android:textColor="#000000"
+    android:textSize="16sp" />
 </LinearLayout>
