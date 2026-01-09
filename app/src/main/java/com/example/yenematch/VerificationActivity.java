@@ -50,5 +50,14 @@ public class VerificationActivity extends AppCompatActivity {
                 Toast.makeText(this, "Incorrect code. Try 1234", Toast.LENGTH_SHORT).show();
             }
         });
+        // Inside VerificationActivity.java
+        String userEmail = getIntent().getStringExtra("USER_CONTACT");
+
+        btnVerify.setOnClickListener(v -> {
+            // After "verifying" the code, move to the final info screen
+            Intent intent = new Intent(VerificationActivity.this, FinalUserInfoActivity.class);
+            intent.putExtra("USER_EMAIL", userEmail); // Keep carrying the email!
+            startActivity(intent);
+        });
     }
 }
