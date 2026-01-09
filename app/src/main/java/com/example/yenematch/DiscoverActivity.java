@@ -7,6 +7,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import android.content.Intent;
 
 public class DiscoverActivity extends AppCompatActivity {
 
@@ -81,7 +82,10 @@ public class DiscoverActivity extends AppCompatActivity {
             int id = item.getItemId();
             if (id == R.id.nav_discover) return true;
             else if (id == R.id.nav_search) {
-                Toast.makeText(this, "Search coming soon!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(DiscoverActivity.this, Search_page.class);
+                startActivity(intent);
+                overridePendingTransition(0, 0);
+                finish();
                 return true;
             }
             // ... (rest of your navigation logic)
