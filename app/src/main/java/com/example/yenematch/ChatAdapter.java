@@ -13,15 +13,20 @@ import java.util.List;
 public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int TYPE_SENT = 1;
     private static final int TYPE_RECEIVED = 2;
-    private final List<Message> messageList;
 
-    public ChatAdapter(List<Message> messageList) {
+    private final List<Message> messageList;
+    private final int currentUserId; // Field added to satisfy the 2-parameter requirement
+
+    // Updated constructor to accept 2 parameters
+
+    public ChatAdapter(List<Message> messageList, int currentUserId) {
         this.messageList = messageList;
+        this.currentUserId = currentUserId;
     }
 
     @Override
     public int getItemViewType(int position) {
-        // Correctly returns type based on the sender boolean in Message.java
+        // Restored your original logic using the boolean from Message.java
         return messageList.get(position).isSentByMe() ? TYPE_SENT : TYPE_RECEIVED;
     }
 
@@ -29,11 +34,9 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (viewType == TYPE_SENT) {
-            // Inflates your RED bubble
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_message_sent, parent, false);
             return new SentViewHolder(view);
         } else {
-            // Inflates your GREY bubble
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_message_received, parent, false);
             return new ReceivedViewHolder(view);
         }
@@ -54,7 +57,6 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         return messageList != null ? messageList.size() : 0;
     }
 
-    // ViewHolder for your Red Bubbles
     static class SentViewHolder extends RecyclerView.ViewHolder {
         TextView messageText;
         SentViewHolder(View itemView) {
@@ -63,7 +65,6 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
     }
 
-    // ViewHolder for Sarah's Grey Bubbles
     static class ReceivedViewHolder extends RecyclerView.ViewHolder {
         TextView messageText;
         ReceivedViewHolder(View itemView) {

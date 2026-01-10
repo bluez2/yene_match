@@ -6,11 +6,20 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.YeneMatch">
+        <activity
+            android:name=".activity_message_settings"
+            android:exported="false" />
+        <activity
+            android:name=".activity_notifications"
+            android:exported="false" />
+        <activity
+            android:name=".activity_privacy"
+            android:exported="false" />
         <activity
             android:name=".MatchAdapter"
             android:exported="false" />
@@ -23,6 +32,7 @@
         <activity
             android:name=".Edit_profile"
             android:exported="false" />
+
         <activity android:name=".SetupProfileActivity2" />
         <activity
             android:name=".Chats"
@@ -63,6 +73,7 @@
         <activity
             android:name=".MainActivity"
             android:exported="true">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

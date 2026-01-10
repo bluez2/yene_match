@@ -27,7 +27,7 @@ public class Chats extends AppCompatActivity {
     private ImageView btnSend, ivMic;
     private RecyclerView rvMessages;
     private ChatAdapter adapter;
-    private List<MessageModel> messageList = new ArrayList<>();
+    private List<Message> messageList = new ArrayList<>();
 
     private int matchId;
     private int currentUserId;

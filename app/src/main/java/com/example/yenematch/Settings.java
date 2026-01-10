@@ -41,16 +41,21 @@ public class Settings extends AppCompatActivity {
     }
 
     private void setupCardClicks() {
-        findViewById(R.id.cardPrivacy).setOnClickListener(v ->
-                Toast.makeText(this, "Privacy Settings", Toast.LENGTH_SHORT).show());
+        findViewById(R.id.cardPrivacy).setOnClickListener(v -> {
+            Intent intent = new Intent(Settings.this, activity_privacy.class);
+            startActivity(intent);
+        });
+        findViewById(R.id.cardNotifications).setOnClickListener(v -> {
+            Intent intent = new Intent(Settings.this, activity_notifications.class);
+            startActivity(intent);
+        });
 
-        findViewById(R.id.cardNotifications).setOnClickListener(v ->
-                Toast.makeText(this, "Notification Settings", Toast.LENGTH_SHORT).show());
+        // Inside setupCardClicks() in Settings.java
 
-        findViewById(R.id.cardMessages).setOnClickListener(v ->
-                Toast.makeText(this, "Message Settings", Toast.LENGTH_SHORT).show());
+        findViewById(R.id.cardMessages).setOnClickListener(v -> {
+            Intent intent = new Intent(Settings.this, activity_message_settings.class);
+            startActivity(intent);
+        });
 
-        findViewById(R.id.cardUpgradeToPremium).setOnClickListener(v ->
-                Toast.makeText(this, "Upgrade coming soon!", Toast.LENGTH_SHORT).show());
     }
 }
