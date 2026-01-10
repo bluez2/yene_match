@@ -55,7 +55,7 @@ public class VerificationActivity extends AppCompatActivity {
 
         btnVerify.setOnClickListener(v -> {
             // After "verifying" the code, move to the final info screen
-            Intent intent = new Intent(VerificationActivity.this, FinalUserInfoActivity.class);
+            Intent intent = new Intent(VerificationActivity.this, SetupProfileActivity.class);
             intent.putExtra("USER_EMAIL", userEmail); // Keep carrying the email!
             startActivity(intent);
         });

@@ -4,14 +4,18 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SetupProfileActivity2 extends AppCompatActivity {
 
@@ -20,11 +24,18 @@ public class SetupProfileActivity2 extends AppCompatActivity {
     private RadioGroup rgGender;
     private Button btnAddInterest, btnFinishSetup;
 
+    // Variables to hold data from previous screens
+    private String email, username, password;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Linked to your specific XML name
         setContentView(R.layout.activity_setup_profile2);
+
+        // 1. Retrieve data passed from previous activities
+        email = getIntent().getStringExtra("USER_EMAIL");
+        username = getIntent().getStringExtra("USER_NAME");
+        password = getIntent().getStringExtra("USER_PASS");
 
         // Initialize UI Elements
         etFullName = findViewById(R.id.etFullName);
@@ -36,7 +47,6 @@ public class SetupProfileActivity2 extends AppCompatActivity {
         btnAddInterest = findViewById(R.id.btnAddInterest);
         btnFinishSetup = findViewById(R.id.btnFinishSetup);
 
-        // Logic to add chips for interests
         btnAddInterest.setOnClickListener(v -> {
             String interest = etInterestInput.getText().toString().trim();
             if (!interest.isEmpty()) {
@@ -45,15 +55,46 @@ public class SetupProfileActivity2 extends AppCompatActivity {
             }
         });
 
-        // The button that takes user to Discover Page
         btnFinishSetup.setOnClickListener(v -> {
             if (validateFields()) {
-                // Navigate to DiscoverActivity
-                Intent intent = new Intent(SetupProfileActivity2.this, DiscoverActivity.class);
-                startActivity(intent);
+                // 2. Trigger the Database Write
+                saveUserToDatabase();
+            }
+        });
+    }
 
-                // Finish this activity so they can't go back to setup
-                finish();
+    private void saveUserToDatabase() {
+        String fullName = etFullName.getText().toString().trim();
+        int age = Integer.parseInt(etAge.getText().toString().trim());
+        String location = etLocation.getText().toString().trim();
+
+        // 3. Call Retrofit to write to 'users' and 'profiles' tables
+        RetroFitClient.getInterface().createAccount(
+                email,
+                "0900000000", // Placeholder phone, or add an etPhone field
+                password,
+                fullName,
+                age,
+                location
+        ).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(SetupProfileActivity2.this, "Registration Successful!", Toast.LENGTH_SHORT).show();
+
+                    // Navigate to DiscoverActivity
+                    Intent intent = new Intent(SetupProfileActivity2.this, DiscoverActivity.class);
+                    startActivity(intent);
+                    finishAffinity(); // Clears all previous activities from stack
+                } else {
+                    Toast.makeText(SetupProfileActivity2.this, "Registration failed on server", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.e("API_ERROR", t.getMessage());
+                Toast.makeText(SetupProfileActivity2.this, "Network Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -72,6 +113,10 @@ public class SetupProfileActivity2 extends AppCompatActivity {
     private boolean validateFields() {
         if (etFullName.getText().toString().isEmpty()) {
             Toast.makeText(this, "Enter your name", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if (etAge.getText().toString().isEmpty()) {
+            Toast.makeText(this, "Enter your age", Toast.LENGTH_SHORT).show();
             return false;
         }
         if (rgGender.getCheckedRadioButtonId() == -1) {
